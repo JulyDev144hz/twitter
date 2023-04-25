@@ -19,7 +19,7 @@
         <div class="option">
             <h3>No tienes una cuenta?</h3>
             <p>Presiona aqui para crear una cuenta!</p>
-            <button id="buttonSingup">Registrase</button>
+            <button id="buttonSingup">Registrarse</button>
         </div>
 
 
@@ -28,7 +28,10 @@
             <h1 id="title">LOG IN</h1>
             <input required id="user" type="text" name="username" autocomplete="off" placeholder="User" />
             <input required id="password" type="password" name="password" autocomplete="off" placeholder="Password" />
-            <button id="buttonForm">LOG IN</button>
+            <div class="buttons">
+                <span id="changeForm">No tienes una cuenta?</span>
+                <button id="buttonForm">LOG IN</button>
+            </div>
         </form>
     </div>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -36,10 +39,27 @@
     <script>
         <?php if ($alert) { ?>
             let alert = ['<?= $alert[0] ?>', '<?= $alert[1] ?>', '<?= $alert[2] ?>']
-            swal(alert[0],alert[1],alert[2])
+            swal(alert[0], alert[1], alert[2])
         <?php } ?>
 
         let baseurl = '<?= base_url('/') ?>'
+        let loginState = true
+
+        $("#changeForm").on("click",(e)=> {
+            e.preventDefault();
+            loginState = !loginState 
+            if(loginState) {
+                $('.form').attr('action', baseurl + '/login')
+                $('#title').html('LOG IN')
+                $('#buttonForm').html('LOG IN')
+                e.currentTarget.innerHTML  = "No tienes una cuenta?"
+            }else {
+                $('.form').attr('action', baseurl + '/signup')
+                $('#title').html('SIGN UP')
+                $('#buttonForm').html('SIGN UP')
+                e.currentTarget.innerHTML = "Ya tienes una cuenta?"
+            }
+        })
 
         $('#buttonSingup').on('click', () => {
             $('.form').addClass('formSingup')

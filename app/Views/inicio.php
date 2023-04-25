@@ -1,19 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?= base_url("/public/styles/index.css")?>">
     <title>Inicio</title>
 </head>
-<body>
-    <a href="<?= base_url('/logout')?>">Salir</a>
-    <h1>Twitter <?= $username?> <?= $typeUser?></h1>
 
-    <form action="/createTweet">
-        <textarea name="content"></textarea>
-        <button>Twittear</button>
-    </form>
+<body>
+    <aside class="asideLeft">
+        <a class="btnSignOut" href="<?= base_url('/logout')?>"><span>Salir</span></a>
+    </aside>
+
+    <main class="mainIndex">
+        <h1>Twitter
+            <?= $username?>
+            <?= $typeUser?>
+        </h1>
+
+        <form action="/createTweet">
+            <textarea name="content"></textarea>
+            <button>Twittear</button>
+        </form>
+    </main>
+
+    <aside class="asideRight">
+        <div class="userInformation">
+            <img src="" alt="">
+            <span><?=$username?></span>
+        </div>
+    </aside>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -25,4 +43,5 @@
 
     </script>
 </body>
+
 </html>
