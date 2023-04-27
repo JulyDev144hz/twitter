@@ -19,6 +19,10 @@ class TUsers extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
+            'image' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
+            ],
             'password' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',

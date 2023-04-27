@@ -2,18 +2,32 @@
 
 namespace App\Controllers;
 
+use App\Models\TweetModel;
 use App\Models\UserModel;
 
 class Home extends BaseController
 {
     public function index()
     {
-        $alert = session('alert');
+        $TweetModel = new TweetModel();
+        $UserModel = new UserModel();
+
+        $tweets = $TweetModel->getTweets();
+        $index = 0;
+        foreach ($tweets as $tweet) {
+            $user = $UserModel->getUser(['id_user' => $tweet['id_user']])[0];
+            $tweets[$index]['username'] = $user['username'];
+            $tweets[$index]['image'] = $user['image'];
+            $index++;
+        }
+
 
         $data = [
             'username' => session('username'),
             'typeUser' => session('typeUser'),
-            'alert' => $alert
+            'alert' => session('alert'),
+            'toast' => session('toast'),
+            'tweets' => $tweets,
         ];
         if (!$data['username']) {
             return redirect()->to('/login');
@@ -21,7 +35,111 @@ class Home extends BaseController
             return view('inicio', $data);
         }
     }
-    public function logOut(){
+
+    public function editProfilePage()
+    {
+
+        $UserModel = new UserModel();
+        $userData = [
+            'username' => session('username'),
+            'type' => session('typeUser'),
+        ];
+
+
+        $data = [
+            'username' => session('username'),
+            'type' => session('typeUser'),
+            'alert' => session('alert'),
+            'toast' => session('toast'),
+        ];
+
+
+        if (!$data['username']) {
+            return redirect()->to('/login')->with('alert', ['Error', 'Primero debes logearte', 'error']);
+        } else {
+            return view('editProfile', $data);
+        }
+    }
+
+    public function editUser()
+    {
+
+        $file = $this->request->getFile('image');
+
+        if ($file->isValid() && !$file->hasMoved()) {
+            $newName = $file->getRandomName();
+            $file->move('uploads/',$newName);   
+        }
+
+        $UserModel = new UserModel();
+
+        $user = $UserModel->getUser(['username' => $_POST['username']])[0];
+
+        $data = [];
+
+        if (strlen($_POST['password']) > 0 && strlen($_POST['oldPassword']) > 0 && strlen($_POST['confirmPassword']) > 0) {
+            
+            if (
+                password_verify($_POST['oldPassword'], $user['password']) &&
+                $_POST['password'] == $_POST['confirmPassword']
+            ) {
+                $data['password'] = $_POST['password'];
+            }
+        }
+        $data['id_user'] = $user['id_user'];
+        $data['username'] = $_POST['username'];
+        $data['image'] = $newName;
+
+        $UserModel->updateUser($data);
+        return redirect()->to('/');
+    }
+
+    public function createTweet()
+    {
+        $data = [
+            'username' => session('username'),
+            'type' => session('typeUser'),
+        ];
+
+        if (!$data['username']) {
+            return redirect()->to('/login')->with('alert', ['Error', 'No puedes twittear sin logearte', 'error']);
+        } else {
+            $UserModel = new UserModel();
+            $TweetModel = new TweetModel();
+
+            $response = $UserModel->getUser($data)[0];
+
+            $tweet = [
+                'id_user' => $response['id_user'],
+                'content' => $_POST['content'],
+                'likes' => 0
+            ];
+
+            if (strlen(trim($tweet['content'], ' ')) > 0) {
+                $TweetModel->createTweet($tweet);
+                return redirect()->to('/')->with('toast', 'Tweet creado!');
+            } else {
+
+                return redirect()->to('/')->with('toast', 'Error al crear tweet!');
+            }
+        }
+    }
+
+    public function deleteTweet($id)
+    {
+        $TweetModel = new TweetModel();
+        if (session('typeUser') == 'admin') {
+            $TweetModel->deleteTweet(['id_tweet' => $id]);
+            return redirect()->to('/')->with('toast', 'Tweet Eliminado!');
+        } else {
+            return redirect()->to('/')->with('toast', 'No puedes hacer eso!');
+        }
+    }
+
+
+
+    public function logOut()
+    {
         session()->destroy();
         return redirect()->to('/login');
     }
@@ -31,9 +149,16 @@ class Home extends BaseController
         $alert = session('alert');
 
         $data = [
+            'username' => session('username'),
             'alert' => $alert
         ];
-        return view('login', $data);
+
+        if (!$data['username']) {
+
+            return view('login', $data);
+        } else {
+            return redirect()->to('/');
+        }
     }
 
     public function logIn()

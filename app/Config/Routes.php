@@ -34,6 +34,10 @@ $routes->get('/login', 'Home::loginPage');
 $routes->post('/signup', 'Home::signUp');
 $routes->post('/login', 'Home::logIn');
 $routes->get('/logout', 'Home::logOut');
+$routes->post('/createTweet', 'Home::createTweet');
+$routes->get('/deleteTweet/(:num)', 'Home::deleteTweet/$1');
+$routes->get('/editProfile', 'Home::editProfilePage');
+$routes->post('/editUser', 'Home::editUser');
 
 /*
  * --------------------------------------------------------------------

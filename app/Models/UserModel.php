@@ -23,4 +23,10 @@ class UserModel extends Model{
             return 0;
         }
     }
+    public function updateUser($data){
+        $table = $this->db->table('t_usuarios');
+        $table->where('id_user',$data['id_user']);
+        $table->set($data);
+        return $table->update();
+    }
 }

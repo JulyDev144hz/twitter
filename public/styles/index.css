@@ -2,88 +2,259 @@
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 body {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
+  justify-content: center;
   min-height: 100vh;
   background: url("../img/montain2.jpg");
   background-position: center;
   background-size: cover;
 }
-
 body .mainIndex {
+  border-right: 1px solid rgb(46, 46, 46);
+  border-left: 1px solid rgb(46, 46, 46);
   min-height: 100vh;
-  background: rgba(0, 0, 0, 0.234);
+  background: rgba(0, 0, 0, 0.842);
   width: 500px;
   -webkit-backdrop-filter: blur(4px);
           backdrop-filter: blur(4px);
 }
-
-body aside {
-  background: rgba(0, 0, 0, 0.323);
+body .mainIndex .formEditUser {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  grid-auto-rows: auto;
+  gap: 10px;
+  padding: 10px;
 }
-
+body .mainIndex .formEditUser .EdtiProfileInputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+body .mainIndex .formEditUser .EdtiProfileInputs input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #cacaca;
+  font-size: 20px;
+  outline: none;
+  color: white;
+  width: 80%;
+}
+body .mainIndex .formEditUser .EdtiProfileInputs input::-moz-placeholder {
+  color: #cacaca;
+}
+body .mainIndex .formEditUser .EdtiProfileInputs input::placeholder {
+  color: #cacaca;
+}
+body .mainIndex .formEditUser button {
+  font-weight: 500;
+  color: white;
+  background: #04b8ff;
+  font-size: 20px;
+  margin: 10px;
+  padding: 5px 10px;
+  justify-self: right;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+}
+body .mainIndex .formEditUser button:hover {
+  transition: 0.2s;
+  scale: 1.05;
+  box-shadow: 0 0 5px #04b8ff;
+}
+body .mainIndex .formEditUser .imgEditProfile {
+  grid-row: span 2;
+  position: relative;
+  background: #cacaca;
+  border-radius: 50%;
+  width: 128px;
+  height: 128px;
+}
+body .mainIndex .formEditUser .imgEditProfile img {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+}
+body .mainIndex .formEditUser .imgEditProfile input[type=file] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  opacity: 0;
+}
+body .mainIndex .formEditUser .imgEditProfile input[type=file]::-webkit-file-upload-button {
+  display: none;
+}
+body .mainIndex .formEditUser .imgEditProfile::after {
+  position: absolute;
+  content: "";
+  border-radius: 50% 50%;
+  font-weight: 500;
+  color: white;
+  font-size: 20px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0);
+}
+body .mainIndex .formEditUser .imgEditProfile:hover::after {
+  content: "EDITAR";
+  background: rgba(0, 0, 0, 0.4784313725);
+  transition: 0.2s;
+}
+body .mainIndex h1 {
+  padding: 10px;
+  color: #04b8ff;
+  text-shadow: 0 0 5px #000000, 0 0 10px #04b8ff;
+  border-bottom: 1px solid rgb(46, 46, 46);
+}
+body .mainIndex .CreateTweetForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+body .mainIndex .CreateTweetForm textarea {
+  padding: 15px;
+  color: white;
+  width: 100%;
+  height: 200px;
+  font-size: 20px;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  border-bottom: 1px solid rgb(46, 46, 46);
+}
+body .mainIndex .CreateTweetForm textarea::-moz-placeholder {
+  color: #cacaca;
+}
+body .mainIndex .CreateTweetForm textarea::placeholder {
+  color: #cacaca;
+}
+body .mainIndex .CreateTweetForm button {
+  align-self: end;
+  margin: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+  background: #00a3e4;
+  color: white;
+  border-radius: 20px;
+}
+body .mainIndex .CreateTweetForm button:hover {
+  position: relative;
+  transition: 0.2s;
+  box-shadow: 0 0 5px #00a3e4;
+  scale: 1.05;
+}
+body .mainIndex .tweet {
+  position: relative;
+  overflow: hidden;
+  color: rgb(255, 255, 255);
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  grid-template-rows: 64px 1fr;
+  gap: 20px;
+  padding: 15px;
+  border-top: 1px solid rgb(46, 46, 46);
+}
+body .mainIndex .tweet .TweetUserPicture {
+  height: 64px;
+  width: 64px;
+  background: #cacaca;
+  border-radius: 50%;
+}
+body .mainIndex .tweet .TweetUsername {
+  font-weight: 500;
+  font-size: 25px;
+  align-self: center;
+}
+body .mainIndex .tweet .TweetContent {
+  grid-column: span 2;
+  font-size: 18px;
+}
+body .mainIndex .tweet .TweetStats {
+  grid-column: span 2;
+}
+body .mainIndex .tweet .deleteButton {
+  opacity: 1;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: transparent;
+  border: none;
+  outline: none;
+  height: 16px;
+  width: 16px;
+  transform: translateX(30px);
+}
+body .mainIndex .tweet .deleteButton:hover {
+  cursor: pointer;
+  filter: drop-shadow(0 0 5px red);
+}
+body .mainIndex .tweet:hover .deleteButton {
+  transition: 0.2s;
+  opacity: 1;
+  transform: translateX(0);
+}
+body aside {
+  background: rgba(0, 0, 0, 0.842);
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+}
 body .asideLeft .btnSignOut {
   position: relative;
   text-decoration: none;
   margin: 5px;
   height: 2rem;
   width: 100px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   border: 2px solid red;
   font-weight: 500;
   border-radius: 20px;
-  -webkit-transition: .5s;
-  transition: .5s;
-  background: #0000;
+  transition: 0.5s;
+  background: rgba(0, 0, 0, 0);
 }
-
 body .asideLeft .btnSignOut span {
   position: relative;
-  -webkit-transition: .5s;
-  transition: .5s;
+  transition: 0.5s;
   color: red;
 }
-
 body .asideLeft .btnSignOut span::before {
   content: "🡨";
-  color: #f000;
+  color: rgba(255, 0, 0, 0);
   left: 0px;
   position: absolute;
-  -webkit-transition: .5s;
-  transition: .5s;
+  transition: 0.5s;
 }
-
 body .asideLeft .btnSignOut:hover {
   background: red;
   color: white;
-  -webkit-box-shadow: 0 0 5px red;
-          box-shadow: 0 0 5px red;
+  box-shadow: 0 0 5px red;
 }
-
 body .asideLeft .btnSignOut:hover span {
   padding-left: 20px;
   color: white;
 }
-
 body .asideLeft .btnSignOut:hover span::before {
-  color: #ffff;
-}
-/*# sourceMappingURL=index.css.map */
+  color: white;
+}/*# sourceMappingURL=index.css.map */
