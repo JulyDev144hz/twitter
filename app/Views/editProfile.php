@@ -12,21 +12,28 @@
 
 <body>
     <aside class="asideLeft">
-        <a class="btnSignOut" href="<?= base_url('/logout') ?>"><span>Salir</span></a>
+        <a class="btnSignOut" href="<?= base_url('/logout') ?>"><span>Cerrar Sesion</span></a>
+        <a class="btnAsideOption" href="<?= base_url('/') ?>"><span>Inicio</span></a>
+        <a class="btnAsideOption" href="<?= base_url('/editProfile') ?>"><span>Edit Profile</span></a>
     </aside>
 
     <main class="mainIndex">
         <h1>Twitter \ EditProfile</h1>
         <form class="formEditUser" action="<?= base_url('/editUser') ?>" method='POST' enctype="multipart/form-data">
             <div class="imgEditProfile">
-                <img src="<?= base_url('/public/img/userpicture.png') ?>" alt="" id="imgForm">
+                <?php if ($image) { ?>
+                    <img id="imgForm" class="imgForm" src="<?= base_url() . '/uploads/' . $image ?>" alt="">
+                <?php } else { ?>
+                    <img id="imgForm" class="imgForm" src="<?= base_url('/public/img/userpicture.png') ?>" alt="">
+                <?php } ?>
                 <input type="file" name="image" id="imgIn">
             </div>
             <div class="EdtiProfileInputs">
-                <input name="username" type="text" placeholder="Username" value="<?=$username?>">
-                <input name="oldPassword" type="text" placeholder="Old Password">
-                <input name="password" type="text" placeholder="NewPassword">
-                <input name="confirmPassword" type="text" placeholder="Confirm New Password">
+                <input hidden name="oldUsername" type="text" value="<?= $username ?>">
+                <input name="username" autocomplete="off" type="text" placeholder="Username" value="<?= $username ?>">
+                <input name="oldPassword" type="password" placeholder="Old Password">
+                <input name="password" type="password" placeholder="NewPassword">
+                <input name="confirmPassword" type="password" placeholder="Confirm New Password">
             </div>
             <button>Confirm</button>
 
@@ -35,8 +42,13 @@
 
     <aside class="asideRight">
         <div class="userInformation">
-            <img src="" alt="">
-            <span><?= $username ?></span>
+            <?php if ($image) { ?>
+                <img class="userPicture" src="<?= base_url() . '/uploads/' . $image ?>" alt="">
+            <?php } else { ?>
+                <img class="userPicture" src="<?= base_url('/public/img/userpicture.png') ?>" alt="">
+            <?php } ?>
+
+            <span class="userUsername"><?= $username ?></span>
         </div>
     </aside>
 
@@ -65,9 +77,9 @@
 
         const imgForm = document.getElementById('imgForm')
         const imgIn = document.getElementById('imgIn')
-        imgIn.onchange = evt =>{
+        imgIn.onchange = evt => {
             const [file] = imgIn.files
-            if (file){
+            if (file) {
                 imgForm.src = URL.createObjectURL(file)
             }
         }

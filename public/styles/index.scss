@@ -185,6 +185,7 @@ body {
         width: 64px;
         background: #cacaca;
         border-radius: 50%;
+        box-shadow: 0 0 5px #FFF;
       }
       .TweetUsername {
         font-weight: 500;
@@ -233,13 +234,64 @@ body {
     backdrop-filter: blur(4px);
   }
 
+  .asideRight{
+    .userInformation{
+      display: flex;
+      align-items: center;
+      margin: 20px;
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.205);
+      box-shadow: 0 0 5px #fff;
+      padding: 10px 20px 10px 10px;
+      border-radius: 50px;
+      .userUsername{
+        color: white;
+        font-weight: 500;
+        font-size: 20px;
+      }
+      .userPicture{
+        width: 64px;
+        height: 64px;
+        background: #cacaca;
+        border-radius: 50%;
+      }
+    }
+  }
+
   .asideLeft {
+
+    .btnAsideOption{
+      text-decoration: none;
+      font-weight: 500;
+      color: white;
+      border: 2px solid white;
+      border-radius: 20px;
+      height: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 5px;
+
+      &:hover{
+        background: white;
+        transition: .5s;
+        letter-spacing: 1px;
+        box-shadow: 0 0 5px #fff;
+        span{
+          transition: .5s;
+          color: black;
+          text-shadow: 0 0 5px #fff, 0 0 10px #000;
+        }
+      }
+
+    }
+
     .btnSignOut {
       position: relative;
       text-decoration: none;
       margin: 5px;
       height: 2rem;
-      width: 100px;
+      width: 150px;
       display: flex;
       justify-content: center;
       align-items: center;

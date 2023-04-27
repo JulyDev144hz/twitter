@@ -12,7 +12,9 @@
 
 <body>
     <aside class="asideLeft">
-        <a class="btnSignOut" href="<?= base_url('/logout') ?>"><span>Salir</span></a>
+        <a class="btnSignOut" href="<?= base_url('/logout') ?>"><span>Cerrar Sesion</span></a>
+        <a class="btnAsideOption" href="<?= base_url('/') ?>"><span>Inicio</span></a>
+        <a class="btnAsideOption" href="<?= base_url('/editProfile') ?>"><span>Edit Profile</span></a>
     </aside>
 
     <main class="mainIndex">
@@ -27,7 +29,7 @@
             <div class="tweet">
                 <?php if ($tweet['image']) { ?>
                     <img class="TweetUserPicture" src="<?= base_url() . '/uploads/' . $tweet['image'] ?>" alt="">
-                <?php }else{ ?>
+                <?php } else { ?>
                     <img class="TweetUserPicture" src="<?= base_url('/public/img/userpicture.png') ?>" alt="">
                 <?php } ?>
                 <span class="TweetUsername"><?= $tweet['username'] ?></span>
@@ -49,8 +51,13 @@
 
     <aside class="asideRight">
         <div class="userInformation">
-            <img src="" alt="">
-            <span><?= $username ?></span>
+            <?php if ($image) { ?>
+                <img class="userPicture" src="<?= base_url() . '/uploads/' . $image ?>" alt="">
+            <?php } else { ?>
+                <img class="userPicture" src="<?= base_url('/public/img/userpicture.png') ?>" alt="">
+            <?php } ?>
+
+            <span class="userUsername"><?= $username ?></span>
         </div>
     </aside>
 

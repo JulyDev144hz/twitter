@@ -25,6 +25,7 @@ class Home extends BaseController
         $data = [
             'username' => session('username'),
             'typeUser' => session('typeUser'),
+            'image' => session('image'),
             'alert' => session('alert'),
             'toast' => session('toast'),
             'tweets' => $tweets,
@@ -39,15 +40,10 @@ class Home extends BaseController
     public function editProfilePage()
     {
 
-        $UserModel = new UserModel();
-        $userData = [
-            'username' => session('username'),
-            'type' => session('typeUser'),
-        ];
-
 
         $data = [
             'username' => session('username'),
+            'image' => session('image'),
             'type' => session('typeUser'),
             'alert' => session('alert'),
             'toast' => session('toast'),
@@ -66,19 +62,25 @@ class Home extends BaseController
 
         $file = $this->request->getFile('image');
 
+        $data = [];
+        
+        $session = session();
+
         if ($file->isValid() && !$file->hasMoved()) {
             $newName = $file->getRandomName();
-            $file->move('uploads/',$newName);   
+            $file->move('uploads/', $newName);
+            $data['image'] = $newName;
+
+            $session->set("image", $newName);
         }
 
         $UserModel = new UserModel();
 
-        $user = $UserModel->getUser(['username' => $_POST['username']])[0];
+        $user = $UserModel->getUser(['username' => $_POST['oldUsername']])[0];
 
-        $data = [];
 
         if (strlen($_POST['password']) > 0 && strlen($_POST['oldPassword']) > 0 && strlen($_POST['confirmPassword']) > 0) {
-            
+
             if (
                 password_verify($_POST['oldPassword'], $user['password']) &&
                 $_POST['password'] == $_POST['confirmPassword']
@@ -88,10 +90,17 @@ class Home extends BaseController
         }
         $data['id_user'] = $user['id_user'];
         $data['username'] = $_POST['username'];
-        $data['image'] = $newName;
 
-        $UserModel->updateUser($data);
-        return redirect()->to('/');
+        $session->set("username", $data["username"]);
+        // return print_r($data);
+
+        $response = $UserModel->updateUser($data);
+
+        if ($response > 0) {
+            return redirect()->to('/');
+        }else{
+            return redirect()->to("/")->with("toast","Hubo un error");
+        }
     }
 
     public function createTweet()
@@ -170,6 +179,7 @@ class Home extends BaseController
         if (count($user) > 0 && password_verify($data['password'], $user[0]['password'])) {
             $session = session();
             $session->set('username', $data['username']);
+            $session->set('image', $user[0]['image']);
             $session->set('typeUser', $user[0]['type']);
             return redirect()->to('/')->with('alert', ['Logeado!', 'Has Logeado con exito', 'success']);
         } else {
