@@ -7,6 +7,9 @@ use App\Models\UserModel;
 
 class Home extends BaseController
 {
+
+
+
     public function index()
     {
         $TweetModel = new TweetModel();
@@ -63,7 +66,7 @@ class Home extends BaseController
         $file = $this->request->getFile('image');
 
         $data = [];
-        
+
         $session = session();
 
         if ($file->isValid() && !$file->hasMoved()) {
@@ -85,21 +88,20 @@ class Home extends BaseController
                 password_verify($_POST['oldPassword'], $user['password']) &&
                 $_POST['password'] == $_POST['confirmPassword']
             ) {
-                $data['password'] = $_POST['password'];
+                $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
             }
         }
         $data['id_user'] = $user['id_user'];
         $data['username'] = $_POST['username'];
-
+        
         $session->set("username", $data["username"]);
-        // return print_r($data);
 
         $response = $UserModel->updateUser($data);
 
         if ($response > 0) {
             return redirect()->to('/');
-        }else{
-            return redirect()->to("/")->with("toast","Hubo un error");
+        } else {
+            return redirect()->to("/")->with("toast", "Hubo un error");
         }
     }
 
@@ -176,6 +178,7 @@ class Home extends BaseController
         $data = $_POST;
 
         $user = $UserModel->getUser(['username' => $data['username']]);
+
         if (count($user) > 0 && password_verify($data['password'], $user[0]['password'])) {
             $session = session();
             $session->set('username', $data['username']);

@@ -34,10 +34,9 @@ class UserModel extends Model
             if ($table->where("username", $data["username"])->get()->getResultArray()[0]["id_user"] != $data["id_user"]) {
                 return 0;
             }
-        } else {
-            $table->where('id_user', $data['id_user']);
-            $table->set($data);
-            return $table->update();
         }
+        $table->where('id_user', $data['id_user']);
+        $table->set($data);
+        return $table->update();
     }
 }

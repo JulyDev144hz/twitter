@@ -35,7 +35,7 @@
                 <span class="TweetUsername"><?= $tweet['username'] ?></span>
                 <p class="TweetContent"><?= $tweet['content'] ?></p>
                 <div class="TweetStats">
-                    Likes 2 <?= $tweet['id_tweet'] ?>
+                    
                 </div>
 
                 <?php if ($typeUser == "admin") { ?>
