@@ -25,12 +25,14 @@
 
 
         <form class="form" action="<?= base_url() ?>/login" method="POST">
-            <h1 id="title">LOG IN</h1>
-            <input required id="user" type="text" name="username" autocomplete="off" placeholder="User" />
-            <input required id="password" type="password" name="password" autocomplete="off" placeholder="Password" />
+            <h1 id="title">Iniciar Sesion</h1>
+            <input required id="user" type="text" name="username" autocomplete="off" placeholder="Usuario" readonly 
+onfocus="this.removeAttribute('readonly');" />
+            <input required id="password" type="password" name="password" autocomplete="off" placeholder="Contraseña" readonly 
+onfocus="this.removeAttribute('readonly');" />
             <div class="buttons">
                 <span id="changeForm">No tienes una cuenta?</span>
-                <button id="buttonForm">LOG IN</button>
+                <button id="buttonForm">Ingresar</button>
             </div>
         </form>
     </div>
@@ -50,13 +52,13 @@
             loginState = !loginState 
             if(loginState) {
                 $('.form').attr('action', baseurl + '/login')
-                $('#title').html('LOG IN')
-                $('#buttonForm').html('LOG IN')
+                $('#title').html('Iniciar Sesion')
+                $('#buttonForm').html('Ingresar')
                 e.currentTarget.innerHTML  = "No tienes una cuenta?"
             }else {
                 $('.form').attr('action', baseurl + '/signup')
-                $('#title').html('SIGN UP')
-                $('#buttonForm').html('SIGN UP')
+                $('#title').html('Registrarse')
+                $('#buttonForm').html('Ingresar')
                 e.currentTarget.innerHTML = "Ya tienes una cuenta?"
             }
         })
@@ -65,14 +67,14 @@
             $('.form').addClass('formSingup')
 
             $('.form').attr('action', baseurl + '/signup')
-            $('#title').html('SIGN UP')
-            $('#buttonForm').html('SIGN UP')
+            $('#title').html('Registrarse')
+            $('#buttonForm').html('Ingresar')
         })
         $('#buttonLogin').on('click', () => {
             $('.form').removeClass('formSingup')
             $('.form').attr('action', baseurl + '/login')
-            $('#title').html('LOG IN')
-            $('#buttonForm').html('LOG IN')
+            $('#title').html('Iniciar Sesion')
+            $('#buttonForm').html('Ingresar')
         })
     </script>
 </body>
