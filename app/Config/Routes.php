@@ -31,14 +31,15 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'Home::loginPage');
-$routes->post('/signup', 'Home::signUp');
-$routes->post('/login', 'Home::logIn');
-$routes->get('/logout', 'Home::logOut');
-$routes->post('/createTweet', 'Home::createTweet');
-$routes->get('/deleteTweet/(:num)', 'Home::deleteTweet/$1');
 $routes->get('/editProfile', 'Home::editProfilePage');
-$routes->post('/editUser', 'Home::editUser');
 
+$routes->post('/createTweet', 'Tweets::createTweet');
+$routes->get('/deleteTweet/(:num)', 'Tweets::deleteTweet/$1');
+
+$routes->post('/signup', 'Users::signUp');
+$routes->post('/login', 'Users::logIn');
+$routes->get('/logout', 'Users::logOut');
+$routes->post('/editUser', 'Users::editUser');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
