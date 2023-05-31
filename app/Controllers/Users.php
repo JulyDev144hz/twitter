@@ -67,7 +67,7 @@ class Users extends BaseController
             $session = session();
             $session->set('username', $data['username']);
             $session->set('image', $user[0]['image']);
-            $session->set('typeUser', $user[0]['type']);
+            $session->set('rol', $user[0]['id_rol']);
             return redirect()->to('/')->with('alert', ['Logeado!', 'Has Logeado con exito', 'success']);
         } else {
             return redirect()->to('/login')->with('alert', ['Error', 'Usuario o password incorrectas', 'error']);
@@ -78,14 +78,14 @@ class Users extends BaseController
         $UserModel = new UserModel();
 
         $data = $_POST;
-        $data['type'] = 'normal';
+        $data['id_rol'] = 3;
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         $response = $UserModel->createUser($data);
 
         if ($response > 0) {
             $session = session();
             $session->set('username', $data['username']);
-            $session->set('typeUser', 'normal');
+            $session->set('rol', $data["id_rol"]);
 
             return redirect()->to('/')->with('alert', ['Registrado con exito', 'Tu cuenta ha sido creada con exito', 'success']);
         } else {

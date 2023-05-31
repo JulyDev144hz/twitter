@@ -10,7 +10,7 @@ class Tweets extends BaseController
     {
         $data = [
             'username' => session('username'),
-            'type' => session('typeUser'),
+            'id_rol' => session('rol'),
         ];
 
         if (!$data['username']) {
@@ -20,6 +20,7 @@ class Tweets extends BaseController
             $TweetModel = new TweetModel();
 
             $response = $UserModel->getUser($data)[0];
+
 
             $tweet = [
                 'id_user' => $response['id_user'],
@@ -39,7 +40,7 @@ class Tweets extends BaseController
     public function deleteTweet($id)
     {
         $TweetModel = new TweetModel();
-        if (session('typeUser') == 'admin') {
+        if (session('rol') == 2) {
             $TweetModel->deleteTweet(['id_tweet' => $id]);
             return redirect()->to('/')->with('toast', 'Tweet Eliminado!');
         } else {

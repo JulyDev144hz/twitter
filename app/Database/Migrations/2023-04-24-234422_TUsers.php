@@ -15,6 +15,10 @@ class TUsers extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
+            'id_rol' => [
+                'type'           => 'INT',
+                'constraint'     => 5,
+            ],
             'username' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
@@ -24,10 +28,6 @@ class TUsers extends Migration
                 'constraint' => '100',
             ],
             'password' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
-            ],
-            'type' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],

@@ -27,7 +27,8 @@ class Home extends BaseController
 
         $data = [
             'username' => session('username'),
-            'typeUser' => session('typeUser'),
+            'username' => session('username'),
+            'rol' => session('rol'),
             'image' => session('image'),
             'alert' => session('alert'),
             'toast' => session('toast'),
@@ -45,7 +46,7 @@ class Home extends BaseController
         $data = [
             'username' => session('username'),
             'image' => session('image'),
-            'type' => session('typeUser'),
+            'rol' => session('rol'),
             'alert' => session('alert'),
             'toast' => session('toast'),
         ];
@@ -57,17 +58,6 @@ class Home extends BaseController
             return view('editProfile', $data);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
     public function loginPage()
     {
         $alert = session('alert');
@@ -84,8 +74,4 @@ class Home extends BaseController
             return redirect()->to('/');
         }
     }
-
-
-
-
 }
