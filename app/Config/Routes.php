@@ -40,6 +40,7 @@ $routes->post('/signup', 'Users::signUp');
 $routes->post('/login', 'Users::logIn');
 $routes->get('/logout', 'Users::logOut');
 $routes->post('/editUser', 'Users::editUser');
+$routes->get('/profile/(:num)', 'Users::profile/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

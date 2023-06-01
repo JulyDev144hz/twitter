@@ -40,7 +40,7 @@ class Tweets extends BaseController
     public function deleteTweet($id)
     {
         $TweetModel = new TweetModel();
-        if (session('rol') == 2) {
+        if (session('rol') <= 2) {
             $TweetModel->deleteTweet(['id_tweet' => $id]);
             return redirect()->to('/')->with('toast', 'Tweet Eliminado!');
         } else {

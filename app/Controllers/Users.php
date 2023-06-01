@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\TweetModel;
 use App\Models\UserModel;
 
 class Users extends BaseController
@@ -80,6 +81,11 @@ class Users extends BaseController
         $data = $_POST;
         $data['id_rol'] = 3;
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        
+        if(strlen(trim($data["username"])) < 0  || strlen(trim($data["username"])) <4 ){
+            return redirect()->to('/login')->with('alert', ['Error', 'Tu cuenta no ha podido ser creada', 'error']);
+        }
+
         $response = $UserModel->createUser($data);
 
         if ($response > 0) {
@@ -91,5 +97,15 @@ class Users extends BaseController
         } else {
             return redirect()->to('/login')->with('alert', ['Error', 'Tu cuenta no ha podido ser creada', 'error']);
         }
+    }
+    public function profile($id)
+    {
+        $usermodel = new UserModel();
+        $tweetsmodel = new TweetModel();
+
+        $user = $usermodel->getUser(["id_user"=>$id])[0];
+
+        return print_r($user);
+
     }
 }
