@@ -24,10 +24,11 @@ class Home extends BaseController
             $index++;
         }
 
+        
 
         $data = [
             'username' => session('username'),
-            'username' => session('username'),
+            'id' => session('id'),
             'rol' => session('rol'),
             'image' => session('image'),
             'alert' => session('alert'),
@@ -40,11 +41,12 @@ class Home extends BaseController
             return view('inicio', $data);
         }
     }
-
+    
     public function editProfilePage()
     {
         $data = [
             'username' => session('username'),
+            'id' => session('id'),
             'image' => session('image'),
             'rol' => session('rol'),
             'alert' => session('alert'),
