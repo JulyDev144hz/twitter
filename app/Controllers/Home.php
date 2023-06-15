@@ -24,8 +24,6 @@ class Home extends BaseController
             $index++;
         }
 
-        
-
         $data = [
             'username' => session('username'),
             'id' => session('id'),

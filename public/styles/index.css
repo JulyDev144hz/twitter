@@ -235,6 +235,10 @@ body .asideRight .userInformation .userUsername {
   font-weight: 500;
   font-size: 20px;
 }
+body .asideRight .userInformation .userUsername a {
+  color: white;
+  text-decoration: none;
+}
 body .asideRight .userInformation .userPicture {
   width: 64px;
   height: 64px;

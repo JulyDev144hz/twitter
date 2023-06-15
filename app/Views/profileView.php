@@ -7,6 +7,11 @@
     <title>Profile</title>
 </head>
 <body>
-    Hola mundo
+    <?php if (!$image) {?>
+        <img src="<?=base_url('/public/img/userpicture.png')?>" alt="">
+        <?php } else {?>
+            
+            <img src="<?=base_url('/uploads/').$image?>" alt="">
+    <?php } ?>
 </body>
 </html>

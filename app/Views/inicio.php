@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= base_url("/public/styles/index.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("/public/styles/index.css") ?>?<?php echo date('l jS \of F Y h:i:s A'); ?>">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <title>Inicio</title>
 </head>
@@ -57,7 +57,7 @@
                 <img class="userPicture" src="<?= base_url('/public/img/userpicture.png') ?>" alt="">
             <?php } ?>
 
-            <span class="userUsername"><a href="<?= base_url("/profile/").$username?>"><?= $username ?></a></span>
+            <span class="userUsername"><a href="<?= base_url("/profile/").$id?>"><?= $username ?></a></span>
         </div>
     </aside>
 

@@ -42,6 +42,7 @@ class Users extends BaseController
         $data['username'] = $_POST['username'];
 
         $session->set("username", $data["username"]);
+        $session->set("id", $data["id_user"]);
 
         $response = $UserModel->updateUser($data);
 
@@ -67,6 +68,7 @@ class Users extends BaseController
         if (count($user) > 0 && password_verify($data['password'], $user[0]['password'])) {
             $session = session();
             $session->set('username', $data['username']);
+            $session->set('id', $user[0]['id_user']);
             $session->set('image', $user[0]['image']);
             $session->set('rol', $user[0]['id_rol']);
             return redirect()->to('/')->with('alert', ['Logeado!', 'Has Logeado con exito', 'success']);
@@ -91,6 +93,7 @@ class Users extends BaseController
         if ($response > 0) {
             $session = session();
             $session->set('username', $data['username']);
+            $session->set('id',  $response );
             $session->set('rol', $data["id_rol"]);
 
             return redirect()->to('/')->with('alert', ['Registrado con exito', 'Tu cuenta ha sido creada con exito', 'success']);
@@ -104,8 +107,25 @@ class Users extends BaseController
         $tweetsmodel = new TweetModel();
 
         $user = $usermodel->getUser(["id_user"=>$id])[0];
+        $tweets = $tweetsmodel->getTweetsByUserId($id);
 
-        return print_r($user);
+        $session = session();
+        $session->set('username', $user['username']);
+        $session->set('id', $id);
+        $session->set('tweets', $tweets);
+        $session->set('rol', $user["id_rol"]);
+        $session->set('image', $user["image"]);
+
+        $data = [
+            'username' => session('username'),
+            'id' => session('id'),
+            'tweets' => session('tweets'),
+            'rol' => session('rol'),
+            'image' => session('image'),
+        ];
+
+
+        return view("profileView", $data);
 
     }
 }
