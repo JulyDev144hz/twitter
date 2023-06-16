@@ -10,7 +10,7 @@
     <title>Inicio</title>
 </head>
 
-<body>
+<body class="mainBody">
     <aside class="asideLeft">
         <a class="btnSignOut" href="<?= base_url('/logout') ?>"><span>Cerrar Sesion</span></a>
         <a class="btnAsideOption" href="<?= base_url('/') ?>"><span>Inicio</span></a>
